@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const PostsContainer = styled.main`
+export const PageContainer = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,5 +102,99 @@ export const Social = styled.div`
 
   svg {
     color: ${(props) => props.theme['base-label']};
+  }
+`;
+
+export const PostsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 72px;
+  width: 864px;
+`;
+
+export const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+
+  #title {
+    font-size: ${(props) => props.theme.fontSize['title-s']};
+    color: ${(props) => props.theme['base-subtitle']};
+  }
+
+  #quantity {
+    font-size: ${(props) => props.theme.fontSize['text-s']};
+    color: ${(props) => props.theme['base-span']};
+  }
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  border-radius: 6px;
+  height: 50px;
+  background-color: ${(props) => props.theme['base-input']};
+  border: 1px solid ${(props) => props.theme['base-border']};
+
+  padding: 12px 16px;
+
+  color: ${(props) => props.theme['base-text']};
+  font-size: ${(props) => props.theme.fontSize['text-m']};
+  outline: none;
+
+  &::placeholder {
+    font-size: ${(props) => props.theme.fontSize['text-m']};
+    color: ${(props) => props.theme['base-label']};
+  }
+
+  &:focus {
+    border: 1px solid ${(props) => props.theme.blue};
+  }
+`;
+
+export const CardsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 32px;
+
+  margin-top: 48px;
+`;
+
+export const PostCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 416px;
+  height: 260px;
+  gap: 20px;
+
+  border-radius: 10px;
+  padding: 37px 32px;
+
+  border: 2px solid transparent;
+  background-color: ${(props) => props.theme['base-post']};
+
+  cursor: pointer;
+
+  #titleContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    #title {
+      width: 270px;
+      font-size: ${(props) => props.theme.fontSize['title-m']};
+      color: ${(props) => props.theme['base-title']};
+    }
+
+    #createdAt {
+      position: relative;
+      top: 7px;
+      font-size: ${(props) => props.theme.fontSize['text-s']};
+      color: ${(props) => props.theme['base-span']};
+    }
+  }
+
+  &:hover {
+    border: 2px solid ${(props) => props.theme['base-label']};
+    transition: all 0.3s ease-in;
   }
 `;

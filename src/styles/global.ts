@@ -14,5 +14,11 @@ export const GlobalStyle = createGlobalStyle`
         font-weight: 400;
         font-size: 1rem;
         line-height: 1.6;
+
+        a {
+            text-decoration: none;
+            color: ${(props) => props.theme['base-text']};
+            font-size: ${(props) => props.theme.fontSize['text-m']};
+        }
     }
 `;
