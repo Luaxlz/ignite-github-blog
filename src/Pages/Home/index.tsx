@@ -24,8 +24,12 @@ import {
 } from '@phosphor-icons/react';
 //@ts-ignore
 import EllipsisText from 'react-ellipsis-text';
+import { useContext } from 'react';
+import { PostsContext } from '../../contexts/PostsContext';
+import formatDistanceToNow from '../../lib/formatDistanceToNow';
 
 export function Home() {
+  const { posts } = useContext(PostsContext);
   return (
     <>
       <Header />
@@ -70,30 +74,17 @@ export function Home() {
           </TitleContainer>
           <Input type='text' placeholder='Buscar conteúdo' />
           <CardsContainer>
-            {Array.from({ length: 6 }).map((_, i) => {
+            {posts.map((post) => {
               return (
-                <a href={`/post/${i}`} key={i + new Date().getMilliseconds()}>
+                <a href={`/post/${post.number}`} key={post.id}>
                   <PostCard>
                     <div id='titleContainer'>
-                      <span id='title'>
-                        JavaScript data types and data structures
+                      <span id='title'>{post.title}</span>
+                      <span id='createdAt'>
+                        {formatDistanceToNow(post.created_at)}
                       </span>
-                      <span id='createdAt'>Há 1 dia</span>
                     </div>
-                    <EllipsisText
-                      text={`Programming languages all have built-in data structures, but
-                    these often differ from one language to another. This article
-                    attempts to list the built-in data structures available in
-                    JavaScript and what properties they have. These can be used to
-                    build other data structures. Wherever possible, comparisons with
-                    other languages are drawn. Dynamic typing JavaScript is a
-                    loosely typed and dynamic language. Variables in JavaScript are
-                    not directly associated with any particular value type, and any
-                    variable can be assigned (and re-assigned) values of all types:
-                    let foo = 42; // foo is now a number foo = 'bar'; // foo is now
-                    a string foo = true; // foo is now a boolean`}
-                      length={220}
-                    />
+                    <EllipsisText text={post.body || 'nothing'} length={220} />
                   </PostCard>
                 </a>
               );

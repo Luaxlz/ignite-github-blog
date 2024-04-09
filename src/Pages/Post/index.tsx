@@ -16,9 +16,25 @@ import {
   ChatCircle,
   GithubLogo,
 } from '@phosphor-icons/react';
+import { api } from '../../lib/axios';
+import { useEffect, useState } from 'react';
+import { Issue } from '../../contexts/PostsContext';
 
 export default function Post() {
   const { postId } = useParams();
+  const [post, setPost] = useState<Issue>();
+
+  const fetchPostDetails = async (postId: string) => {
+    const response = await api.get(
+      `/repos/rocketseat-education/reactjs-github-blog-challenge/issues/${postId}`,
+    );
+    //@ts-ignore
+    setPost(response.data);
+  };
+
+  useEffect(() => {
+    fetchPostDetails(postId as string);
+  }, []);
   return (
     <>
       <Header />
@@ -35,7 +51,7 @@ export default function Post() {
             </Link>
           </ActionContainer>
           <PostDetails>
-            <span>Javascript data types and data structures</span>
+            <span>{post?.title}</span>
             <PostInfo>
               <span>
                 <GithubLogo size={18} />
@@ -51,9 +67,7 @@ export default function Post() {
             </PostInfo>
           </PostDetails>
         </AboutContainer>
-        <PostsContainer>
-          <h1>POST: {postId}</h1>
-        </PostsContainer>
+        <PostsContainer>{post?.body}</PostsContainer>
       </PageContainer>
     </>
   );
