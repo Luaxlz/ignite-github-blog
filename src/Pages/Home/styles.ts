@@ -129,29 +129,6 @@ export const TitleContainer = styled.div`
   }
 `;
 
-export const Input = styled.input`
-  width: 100%;
-  border-radius: 6px;
-  height: 50px;
-  background-color: ${(props) => props.theme['base-input']};
-  border: 1px solid ${(props) => props.theme['base-border']};
-
-  padding: 12px 16px;
-
-  color: ${(props) => props.theme['base-text']};
-  font-size: ${(props) => props.theme.fontSize['text-m']};
-  outline: none;
-
-  &::placeholder {
-    font-size: ${(props) => props.theme.fontSize['text-m']};
-    color: ${(props) => props.theme['base-label']};
-  }
-
-  &:focus {
-    border: 1px solid ${(props) => props.theme.blue};
-  }
-`;
-
 export const CardsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;

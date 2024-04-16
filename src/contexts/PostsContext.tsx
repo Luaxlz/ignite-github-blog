@@ -70,7 +70,7 @@ export interface Issue {
 
 type PostsContextType = {
   posts: Issue[];
-  fetchPosts: (query: string) => void;
+  fetchPosts: (query: string) => Promise<void>;
 };
 
 type PostsProviderProps = {
@@ -82,14 +82,12 @@ export const PostsContext = createContext({} as PostsContextType);
 export function PostsProvider({ children }: PostsProviderProps) {
   const [posts, setPosts] = useState<Issue[]>([]);
 
-  async function fetchPosts(query?: string) {
+  async function fetchPosts(query: string = '') {
+    const username = 'rocketseat-education';
+    const repo = 'reactjs-github-blog-challenge';
+    const formattedQuery = query.replaceAll(' ', '%20');
     const response = await api.get(
-      '/search/issues?q=%20repo:rocketseat-education/reactjs-github-blog-challenge',
-      {
-        params: {
-          q: query,
-        },
-      },
+      `/search/issues?q=${formattedQuery}%20repo:${username}/${repo}`,
     );
     setPosts([...response.data.items]);
   }

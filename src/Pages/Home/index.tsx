@@ -11,7 +11,6 @@ import {
   Social,
   PostsContainer,
   TitleContainer,
-  Input,
   CardsContainer,
   PostCard,
 } from './styles';
@@ -27,13 +26,10 @@ import EllipsisText from 'react-ellipsis-text';
 import { useContext } from 'react';
 import { PostsContext } from '../../contexts/PostsContext';
 import formatDistanceToNow from '../../lib/formatDistanceToNow';
+import { SearchForm } from './components/SearchForm';
 
 export function Home() {
-  const { posts, fetchPosts } = useContext(PostsContext);
-
-  const handleFilter = async (query: string) => {
-    fetchPosts(query);
-  };
+  const { posts } = useContext(PostsContext);
   return (
     <>
       <Header />
@@ -76,7 +72,7 @@ export function Home() {
             <span id='title'>Publicações</span>
             <span id='quantity'>6 publicações</span>
           </TitleContainer>
-          <Input type='text' placeholder='Buscar conteúdo' />
+          <SearchForm />
           <CardsContainer>
             {posts.map((post) => {
               return (
