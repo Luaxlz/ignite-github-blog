@@ -19,6 +19,7 @@ import {
 import { api } from '../../lib/axios';
 import { useEffect, useState } from 'react';
 import { Issue } from '../../contexts/PostsContext';
+import Markdown from 'react-markdown';
 
 export default function Post() {
   const { postId } = useParams();
@@ -67,7 +68,9 @@ export default function Post() {
             </PostInfo>
           </PostDetails>
         </AboutContainer>
-        <PostsContainer>{post?.body}</PostsContainer>
+        <PostsContainer>
+          <Markdown>{post?.body}</Markdown>
+        </PostsContainer>
       </PageContainer>
     </>
   );

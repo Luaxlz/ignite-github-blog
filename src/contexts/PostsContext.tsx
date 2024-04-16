@@ -70,6 +70,7 @@ export interface Issue {
 
 type PostsContextType = {
   posts: Issue[];
+  fetchPosts: (query: string) => void;
 };
 
 type PostsProviderProps = {
@@ -83,7 +84,12 @@ export function PostsProvider({ children }: PostsProviderProps) {
 
   async function fetchPosts(query?: string) {
     const response = await api.get(
-      '/search/issues?q=Boas%20práticas%20repo:rocketseat-education/reactjs-github-blog-challenge',
+      '/search/issues?q=%20repo:rocketseat-education/reactjs-github-blog-challenge',
+      {
+        params: {
+          q: query,
+        },
+      },
     );
     setPosts([...response.data.items]);
   }
@@ -92,6 +98,8 @@ export function PostsProvider({ children }: PostsProviderProps) {
     fetchPosts();
   }, []);
   return (
-    <PostsContext.Provider value={{ posts }}>{children}</PostsContext.Provider>
+    <PostsContext.Provider value={{ posts, fetchPosts }}>
+      {children}
+    </PostsContext.Provider>
   );
 }

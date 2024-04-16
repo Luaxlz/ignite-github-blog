@@ -29,7 +29,11 @@ import { PostsContext } from '../../contexts/PostsContext';
 import formatDistanceToNow from '../../lib/formatDistanceToNow';
 
 export function Home() {
-  const { posts } = useContext(PostsContext);
+  const { posts, fetchPosts } = useContext(PostsContext);
+
+  const handleFilter = async (query: string) => {
+    fetchPosts(query);
+  };
   return (
     <>
       <Header />
