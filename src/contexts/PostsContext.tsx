@@ -68,8 +68,44 @@ export interface Issue {
   score: number;
 }
 
+interface GitHubUser {
+  login: string;
+  id: number;
+  node_id: string;
+  avatar_url: string;
+  gravatar_id: string;
+  url: string;
+  html_url: string;
+  followers_url: string;
+  following_url: string;
+  gists_url: string;
+  starred_url: string;
+  subscriptions_url: string;
+  organizations_url: string;
+  repos_url: string;
+  events_url: string;
+  received_events_url: string;
+  type: string;
+  site_admin: boolean;
+  name: string;
+  company: string | null;
+  blog: string;
+  location: string | null;
+  email: string | null;
+  hireable: boolean | null;
+  bio: string;
+  twitter_username: string | null;
+  public_repos: number;
+  public_gists: number;
+  followers: number;
+  following: number;
+  created_at: string;
+  updated_at: string;
+}
+
 type PostsContextType = {
   posts: Issue[];
+  user: GitHubUser | undefined;
   fetchPosts: (query: string) => Promise<void>;
 };
 
@@ -81,6 +117,7 @@ export const PostsContext = createContext({} as PostsContextType);
 
 export function PostsProvider({ children }: PostsProviderProps) {
   const [posts, setPosts] = useState<Issue[]>([]);
+  const [user, setUser] = useState<GitHubUser | undefined>(undefined);
 
   async function fetchPosts(query: string = '') {
     const username = 'rocketseat-education';
@@ -92,11 +129,19 @@ export function PostsProvider({ children }: PostsProviderProps) {
     setPosts([...response.data.items]);
   }
 
+  async function fetchUser() {
+    const username = 'Luaxlz';
+    const response = await api.get(`/users/${username}`);
+    console.log(response.data);
+    setUser(response.data);
+  }
+
   useEffect(() => {
     fetchPosts();
+    fetchUser();
   }, []);
   return (
-    <PostsContext.Provider value={{ posts, fetchPosts }}>
+    <PostsContext.Provider value={{ posts, user, fetchPosts }}>
       {children}
     </PostsContext.Provider>
   );

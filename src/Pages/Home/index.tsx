@@ -29,16 +29,16 @@ import formatDistanceToNow from '../../lib/formatDistanceToNow';
 import { SearchForm } from './components/SearchForm';
 
 export function Home() {
-  const { posts } = useContext(PostsContext);
+  const { posts, user } = useContext(PostsContext);
   return (
     <>
       <Header />
       <PageContainer>
         <AboutContainer>
-          <Avatar src={avatarImg} alt='user profile image' />
+          <Avatar src={user?.avatar_url} alt='user profile image' />
           <DetailsContainer>
             <AboutName>
-              <span>Lucas Angeli</span>
+              <span>{user?.name}</span>
               <Link>
                 <a href='https://github.com/Luaxlz' target='_blank'>
                   Github
@@ -47,10 +47,7 @@ export function Home() {
               </Link>
             </AboutName>
             <ProfileSummaryContainer>
-              <span>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Praesentium maiores facilis aliquid reiciendis
-              </span>
+              <span>{user?.bio}</span>
               <SocialContainer>
                 <Social>
                   <GithubLogo size={18} weight='fill' />
@@ -61,7 +58,9 @@ export function Home() {
                   Agroflux
                 </Social>
                 <Social>
-                  <Users size={18} weight='fill' />2 seguidores
+                  <Users size={18} weight='fill' />
+                  {user?.followers}{' '}
+                  {user?.followers === 1 ? 'seguidor' : 'seguidores'}
                 </Social>
               </SocialContainer>
             </ProfileSummaryContainer>
@@ -70,7 +69,10 @@ export function Home() {
         <PostsContainer>
           <TitleContainer>
             <span id='title'>Publicações</span>
-            <span id='quantity'>6 publicações</span>
+            <span id='quantity'>
+              {user?.public_repos}{' '}
+              {user?.public_repos === 1 ? 'publicação' : 'publicações'}
+            </span>
           </TitleContainer>
           <SearchForm />
           <CardsContainer>
